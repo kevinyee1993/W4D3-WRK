@@ -1,0 +1,35 @@
+<h1>Cats upon cats!</h1>
+
+<% if current_user %>
+  <form action="<%=session_url%>" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+
+  <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+
+    <input type="submit" value="Log out">
+  </form>
+
+
+
+  <%if flash[:success]%>
+  <%=flash[:success]%>
+  <%end%>
+
+<% else %>
+
+  <form action="<%=new_session_url%>" method="get">
+      <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+
+    <input type="submit" value="Log in">
+
+  </form>
+
+
+<% end %>
+<ul>
+  <% @cats.each do |cat| %>
+    <li><a href="<%= cat_url(cat) %>"><%= cat.name %></a></li>
+  <% end %>
+</ul>
+
+<a href="<%= new_cat_url %>">Create cat</a>
